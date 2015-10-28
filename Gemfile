@@ -7,7 +7,7 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
-gem 'sdoc'
+gem 'sdoc', group: :doc
 
 group :development, :test do
   gem 'sqlite3'
