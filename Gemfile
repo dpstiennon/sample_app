@@ -14,15 +14,16 @@ gem 'bcrypt'
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'byebug'
+  gem 'ruby-debug-ide'
   gem 'web-console'
   gem 'spring'
+  gem 'debase'
 end
 
 group :test do
-  gem 'minitest-reporters'
-  gem 'mini_backtrace'
-  gem 'guard-minitest'
+   gem 'minitest-reporters', '1.0.20'
+   gem 'mini_backtrace'
+   gem 'guard-minitest'
 end
 
 group :production do
