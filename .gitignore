@@ -19,3 +19,4 @@
 /spring/*.pid
 
 /.idea/workspace.xml
+/.idea/sample_app.iml
