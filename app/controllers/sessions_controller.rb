@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  include SessionsHelper
   def new
 
   end
@@ -6,6 +7,9 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by_email(our_session[:email])
     if user && user.authenticate(our_session[:password])
+      log_in(user)
+
+      our_session[:remember_me] == '1' ? remember(user) : forget(user)
       redirect_to user
 
     else
@@ -15,11 +19,16 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    log_out if logged_in?
+    redirect_to root_url
   end
 
+
   private
+
     def our_session
       params[:session]
     end
+
 
 end
