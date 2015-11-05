@@ -1,4 +1,14 @@
 class UsersController < ApplicationController
+  before_action :logged_in_user, only: [:index, :edit, :update]
+  before_action :correct_user, only: [:edit, :update]
+
+
+
+  def index
+    @users = User.all
+  end
+
+
   def new
     @user = User.new
   end
@@ -19,16 +29,44 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+    @gravatar_url = get_gravatar_url @user
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = 'Profile Updated'
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
+
+  def get_gravatar_url(user)
+    gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
+    gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}"
+    return gravatar_url
+  end
 
   private
-    def get_gravatar_url(user)
-      gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
-      gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}"
-      return gravatar_url
-    end
-
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def logged_in_user
+      unless logged_in?
+        store_location
+        flash[:danger] = "Please log in"
+        redirect_to login_url
+      end
+    end
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to root_url unless current_user?(@user)
     end
 
 end
