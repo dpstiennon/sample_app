@@ -19,3 +19,10 @@ User.create!(name: 'Example User',
   password = "password"
   User.create!(name: name, email: email, password: password, password_confirmation: password)
 end
+
+User.order(:created_at).take(6).each  do |user|
+  50.times do
+    user.microposts.create!(content: Faker::Lorem.sentence(5))
+  end
+
+end
