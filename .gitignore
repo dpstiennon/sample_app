@@ -19,3 +19,5 @@
 /spring/*.pid
 
 /.idea/workspace.xml
+
+/public/uploads
