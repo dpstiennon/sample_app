@@ -53,6 +53,15 @@ class UsersController < ApplicationController
 
   end
 
+  def followers
+
+  end
+
+  def following
+    
+  end
+
+
 
   def get_gravatar_url(user)
     gravatar_id = Digest::MD5::hexdigest(user.email.downcase)
