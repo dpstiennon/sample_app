@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
     @gravatar_url = get_gravatar_url @user
+    x = 3 +3
   end
 
   def create
